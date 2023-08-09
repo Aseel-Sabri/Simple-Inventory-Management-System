@@ -23,6 +23,12 @@ namespace InventoryManagementSystem
         {
             return _inventory.Products.AsEnumerable<Product>();
         }
-
+        public IEnumerable<Product> GetProductByName(string productName)
+        {
+            var result = from s in _inventory.Products
+                         where s.Name == productName
+                         select s;
+            return result;
+        }
     }
 }

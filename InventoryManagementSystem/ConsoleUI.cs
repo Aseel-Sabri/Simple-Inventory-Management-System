@@ -93,6 +93,7 @@ namespace InventoryManagementSystem
                     }
                 case Operation.SearchProduct:
                     {
+                        _consoleOperations.SearchProduct();
                         return;
                     }
             }

@@ -43,6 +43,28 @@ namespace InventoryManagementSystem
             }
         }
 
+        public void SearchProduct()
+        {
+            string name = GetProductName();
+            GetProductByName(name);
+        }
+
+        public bool GetProductByName(string name)
+        {
+            Console.WriteLine();
+            var products = _inventorySrevices.GetProductByName(name);
+            if (!products.Any())
+            {
+                Console.WriteLine("Product Not Found");
+                return false;
+            }
+            foreach (Product product in products)
+            {
+                Console.WriteLine(product);
+            }
+            return true;
+        }
+
         static string GetProductName()
         {
             return GetProductField(ProductValidation.ValidateProductName, "Name");
