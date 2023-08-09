@@ -18,5 +18,10 @@ namespace InventoryManagementSystem
         {
             Products = products;    
         }
+
+        public void AddProduct(Product product)
+        {
+            Products.Add(product);
+        }
     }
 }

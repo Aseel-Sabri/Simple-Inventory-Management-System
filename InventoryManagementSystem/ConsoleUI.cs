@@ -8,6 +8,11 @@ namespace InventoryManagementSystem
 {
     internal class ConsoleUI : IUserInterface
     {
+        private readonly ConsoleOperations _consoleOperations;
+        public ConsoleUI()
+        {
+            _consoleOperations = new ConsoleOperations();
+        }
         enum Operation
         {
             None = 0,
@@ -69,6 +74,7 @@ namespace InventoryManagementSystem
                     return;
                 case Operation.AddProduct:
                     {
+                        _consoleOperations.AddProduct();
                         return;
                     }
                 case Operation.ViewAllProducts:
