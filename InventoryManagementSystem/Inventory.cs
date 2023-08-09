@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace InventoryManagementSystem
 {
     public class Inventory
     {
-        public List<Product> Products { get; set; }
+        public List<Product> Products { get; private set; }
         public Inventory()
         {
             Products = new List<Product>();
@@ -16,7 +17,7 @@ namespace InventoryManagementSystem
 
         public Inventory(List<Product> products)
         {
-            Products = products;    
+            Products = products;
         }
 
         public void AddProduct(Product product)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,5 +18,11 @@ namespace InventoryManagementSystem
         {
             _inventory.AddProduct(product);
         }
+
+        public IEnumerable<Product> GetAllProducts()
+        {
+            return _inventory.Products.AsEnumerable<Product>();
+        }
+
     }
 }

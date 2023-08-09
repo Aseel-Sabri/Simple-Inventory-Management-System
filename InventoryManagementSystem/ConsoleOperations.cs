@@ -29,6 +29,20 @@ namespace InventoryManagementSystem
             _inventorySrevices.AddProduct(product);
         }
 
+        public void GetAllProducts()
+        {
+            var products = _inventorySrevices.GetAllProducts();
+            if (!products.Any())
+            {
+                Console.WriteLine("No products available");
+                return;
+            }
+            foreach (Product product in products)
+            {
+                Console.WriteLine(product);
+            }
+        }
+
         static string GetProductName()
         {
             return GetProductField(ProductValidation.ValidateProductName, "Name");

@@ -54,6 +54,7 @@ namespace InventoryManagementSystem
         Operation ReadUserOption()
         {
             string? input = Console.ReadLine();
+            Console.WriteLine();
             if (!string.IsNullOrEmpty(input))
             {
                 if (int.TryParse(input, out int op) && op > (int)Operation.None && op <= (int)Operation.Exit)
@@ -61,7 +62,7 @@ namespace InventoryManagementSystem
                     return (Operation)op;
                 }
             }
-            Console.WriteLine($"\nOperation must be an integer within the range 1 - {(int)Operation.Exit}");
+            Console.WriteLine($"Operation must be an integer within the range 1 - {(int)Operation.Exit}");
             return Operation.None;
         }
 
@@ -79,6 +80,7 @@ namespace InventoryManagementSystem
                     }
                 case Operation.ViewAllProducts:
                     {
+                        _consoleOperations.GetAllProducts();
                         return;
                     }
                 case Operation.EditProduct:

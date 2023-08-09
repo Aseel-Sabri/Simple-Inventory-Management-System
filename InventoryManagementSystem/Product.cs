@@ -24,5 +24,9 @@ namespace InventoryManagementSystem
             Quantity = quantity;
         }
 
+        public override string ToString()
+        {
+            return $"Product Name: {Name}, Price: {Price}, Quantity: {Quantity}";
+        }
     }
 }
