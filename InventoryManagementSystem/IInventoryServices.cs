@@ -12,5 +12,6 @@ namespace InventoryManagementSystem
         void AddProduct(Product product);
         IEnumerable<Product> GetAllProducts();
         IEnumerable<Product> GetProductByName(string productName);
+        void EditProduct(Product oldProduct, Product newProduct);
     }
 }

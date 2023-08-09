@@ -85,6 +85,7 @@ namespace InventoryManagementSystem
                     }
                 case Operation.EditProduct:
                     {
+                        _consoleOperations.EditProduct();
                         return;
                     }
                 case Operation.DeleteProduct:

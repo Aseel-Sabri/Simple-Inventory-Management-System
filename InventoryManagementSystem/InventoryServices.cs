@@ -30,5 +30,11 @@ namespace InventoryManagementSystem
                          select s;
             return result;
         }
+        public void EditProduct(Product oldProduct, Product newProduct)
+        {
+            oldProduct.Name = newProduct.Name;
+            oldProduct.Price = newProduct.Price;
+            oldProduct.Quantity = newProduct.Quantity;
+        }
     }
 }

@@ -65,6 +65,35 @@ namespace InventoryManagementSystem
             return true;
         }
 
+        public void EditProduct()
+        {
+            string name = GetProductName();
+            if (!GetProductByName(name))
+            {
+                return;
+            }
+
+            Console.WriteLine();
+            string newName = GetProductName();
+            double newPrice = double.Parse(GetProductPrice());
+            int newQuantity = int.Parse(GetProductQuantity());
+
+            Product newProduct = new()
+            {
+                Name = newName,
+                Price = newPrice,
+                Quantity = newQuantity
+            };
+
+            var products = _inventorySrevices.GetProductByName(name);
+            foreach (Product product in products)
+            {
+                _inventorySrevices.EditProduct(product, newProduct);
+            }
+
+            Console.WriteLine("\nEdited Successfully");
+        }
+
         static string GetProductName()
         {
             return GetProductField(ProductValidation.ValidateProductName, "Name");
