@@ -8,10 +8,10 @@ namespace InventoryManagementSystem
 {
     internal class ConsoleUI : IUserInterface
     {
-        private readonly ConsoleOperations _consoleOperations;
+        private readonly ConsoleServices _consoleServices;
         public ConsoleUI()
         {
-            _consoleOperations = new ConsoleOperations();
+            _consoleServices = new ConsoleServices();
         }
         enum Operation
         {
@@ -75,17 +75,17 @@ namespace InventoryManagementSystem
                     return;
                 case Operation.AddProduct:
                     {
-                        _consoleOperations.AddProduct();
+                        _consoleServices.AddProduct();
                         return;
                     }
                 case Operation.ViewAllProducts:
                     {
-                        _consoleOperations.GetAllProducts();
+                        _consoleServices.GetAllProducts();
                         return;
                     }
                 case Operation.EditProduct:
                     {
-                        _consoleOperations.EditProduct();
+                        _consoleServices.EditProduct();
                         return;
                     }
                 case Operation.DeleteProduct:
@@ -94,7 +94,7 @@ namespace InventoryManagementSystem
                     }
                 case Operation.SearchProduct:
                     {
-                        _consoleOperations.SearchProduct();
+                        _consoleServices.SearchProduct();
                         return;
                     }
             }

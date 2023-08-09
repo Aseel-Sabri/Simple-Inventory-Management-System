@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace InventoryManagementSystem
 {
-    internal interface IInventoryServices
+    internal interface IInventoryRepository
     {
         void AddProduct(Product product);
         IEnumerable<Product> GetAllProducts();

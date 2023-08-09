@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace InventoryManagementSystem
 {
-    internal class InventoryServices : IInventoryServices
+    internal class InventoryRepository : IInventoryRepository
     {
         private readonly Inventory _inventory;
-        public InventoryServices()
+        public InventoryRepository()
         {
             _inventory = new Inventory();
         }

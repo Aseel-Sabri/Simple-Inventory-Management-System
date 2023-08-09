@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace InventoryManagementSystem
 {
-    internal class ConsoleOperations
+    internal class ConsoleServices
     {
-        private readonly IInventoryServices _inventorySrevices;
-        public ConsoleOperations()
+        private readonly IInventoryRepository _inventoryRepository;
+        public ConsoleServices()
         {
-            _inventorySrevices = new InventoryServices();
+            _inventoryRepository = new InventoryRepository();
         }
         public void AddProduct()
         {
@@ -26,12 +26,12 @@ namespace InventoryManagementSystem
                 Quantity = quantity
             };
 
-            _inventorySrevices.AddProduct(product);
+            _inventoryRepository.AddProduct(product);
         }
 
         public void GetAllProducts()
         {
-            var products = _inventorySrevices.GetAllProducts();
+            var products = _inventoryRepository.GetAllProducts();
             if (!products.Any())
             {
                 Console.WriteLine("No products available");
@@ -52,7 +52,7 @@ namespace InventoryManagementSystem
         public bool GetProductByName(string name)
         {
             Console.WriteLine();
-            var products = _inventorySrevices.GetProductByName(name);
+            var products = _inventoryRepository.GetProductByName(name);
             if (!products.Any())
             {
                 Console.WriteLine("Product Not Found");
@@ -85,10 +85,10 @@ namespace InventoryManagementSystem
                 Quantity = newQuantity
             };
 
-            var products = _inventorySrevices.GetProductByName(name);
+            var products = _inventoryRepository.GetProductByName(name);
             foreach (Product product in products)
             {
-                _inventorySrevices.EditProduct(product, newProduct);
+                _inventoryRepository.EditProduct(product, newProduct);
             }
 
             Console.WriteLine("\nEdited Successfully");
