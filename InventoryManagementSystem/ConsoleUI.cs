@@ -66,13 +66,10 @@ namespace InventoryManagementSystem
             return Operation.None;
         }
 
-        // TODO: Call Operation Methods
         void PerformOperation(Operation op)
         {
             switch (op)
             {
-                case Operation.None:
-                    return;
                 case Operation.AddProduct:
                     {
                         _consoleServices.AddProduct();
@@ -90,6 +87,7 @@ namespace InventoryManagementSystem
                     }
                 case Operation.DeleteProduct:
                     {
+                        _consoleServices.DeleteProduct();
                         return;
                     }
                 case Operation.SearchProduct:

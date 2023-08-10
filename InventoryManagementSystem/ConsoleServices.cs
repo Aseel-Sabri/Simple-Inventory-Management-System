@@ -94,6 +94,21 @@ namespace InventoryManagementSystem
             Console.WriteLine("\nEdited Successfully");
         }
 
+        public void DeleteProduct()
+        {
+            string name = GetProductName();
+            if (!GetProductByName(name))
+            {
+                return;
+            }
+
+            Console.WriteLine();
+
+            _inventoryRepository.DeleteProduct(name);
+
+            Console.WriteLine("\nDeleted Successfully");
+        }
+
         static string GetProductName()
         {
             return GetProductField(ProductValidation.ValidateProductName, "Name");

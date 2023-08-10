@@ -36,5 +36,10 @@ namespace InventoryManagementSystem
             oldProduct.Price = newProduct.Price;
             oldProduct.Quantity = newProduct.Quantity;
         }
+
+        public void DeleteProduct(string productName)
+        {
+            _inventory.DeleteProduct(productName);
+        }
     }
 }

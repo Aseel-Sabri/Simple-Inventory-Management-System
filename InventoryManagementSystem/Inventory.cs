@@ -24,5 +24,10 @@ namespace InventoryManagementSystem
         {
             Products.Add(product);
         }
+
+        internal void DeleteProduct(string productName)
+        {
+            Products.RemoveAll(product => product.Name == productName);
+        }
     }
 }

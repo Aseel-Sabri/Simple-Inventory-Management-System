@@ -13,5 +13,6 @@ namespace InventoryManagementSystem
         IEnumerable<Product> GetAllProducts();
         IEnumerable<Product> GetProductByName(string productName);
         void EditProduct(Product oldProduct, Product newProduct);
+        void DeleteProduct(string productName);
     }
 }
