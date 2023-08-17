@@ -7,13 +7,15 @@ using System.Threading.Tasks;
 
 namespace InventoryManagementSystem
 {
-    internal class ConsoleUI : IUserInterface
+    internal class ConsoleUserInterface : IUserInterface
     {
         private readonly ConsoleServices _consoleServices;
-        public ConsoleUI()
+
+        public ConsoleUserInterface()
         {
             _consoleServices = new ConsoleServices();
         }
+
         enum Operation
         {
             AddProduct = 1,
