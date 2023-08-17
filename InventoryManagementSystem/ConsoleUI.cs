@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentResults;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,6 @@ namespace InventoryManagementSystem
         }
         enum Operation
         {
-            None = 0,
             AddProduct = 1,
             ViewAllProducts = 2,
             EditProduct = 3,
@@ -31,13 +31,18 @@ namespace InventoryManagementSystem
 
         void DisplayMenu()
         {
-            Operation op;
+            Result<Operation> opResult;
             do
             {
                 DisplayOptions();
-                op = ReadUserOption();
-                PerformOperation(op);
-            } while (op != Operation.Exit);
+                opResult = ReadUserOption();
+                if (opResult.IsFailed)
+                {
+                    Console.WriteLine(opResult.Errors.First().Message);
+                    continue;
+                }
+                PerformOperation(opResult.ValueOrDefault);
+            } while (opResult.ValueOrDefault != Operation.Exit);
         }
 
         void DisplayOptions()
@@ -51,19 +56,25 @@ namespace InventoryManagementSystem
             Console.WriteLine("6. Exit");
         }
 
-        Operation ReadUserOption()
+        Result<Operation> ReadUserOption()
         {
             string? input = Console.ReadLine();
             Console.WriteLine();
-            if (!string.IsNullOrEmpty(input))
+            if (IsValidOperation(input))
             {
-                if (int.TryParse(input, out int op) && op > (int)Operation.None && op <= (int)Operation.Exit)
-                {
-                    return (Operation)op;
-                }
+                Operation.TryParse(input, out Operation op);
+                return Result.Ok(op);
             }
-            Console.WriteLine($"Operation must be an integer within the range 1 - {(int)Operation.Exit}");
-            return Operation.None;
+            return Result.Fail($"Operation must be an integer within the range 1 - {(int)Operation.Exit}");
+
+            #region local function
+            bool IsValidOperation(string? input)
+            {
+                return !string.IsNullOrEmpty(input)
+                    && Operation.TryParse(input, out Operation op)
+                    && Operation.IsDefined(op);
+            }
+            #endregion
         }
 
         void PerformOperation(Operation op)
