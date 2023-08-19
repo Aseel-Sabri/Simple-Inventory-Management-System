@@ -9,15 +9,18 @@ namespace InventoryManagementSystem
     internal class ConsoleServices
     {
         private readonly IInventoryRepository _inventoryRepository;
+
         public ConsoleServices()
         {
             _inventoryRepository = new InventoryRepository();
         }
+
         public void AddProduct()
         {
             string name = GetProductName();
-            double price = double.Parse(GetProductPrice());
-            int quantity = int.Parse(GetProductQuantity());
+            double price = GetProductPrice();
+            int quantity = GetProductQuantity();
+            Console.WriteLine();
 
             Product product = new()
             {
@@ -109,23 +112,23 @@ namespace InventoryManagementSystem
             Console.WriteLine("\nDeleted Successfully");
         }
 
-        static string GetProductName()
+        private static string GetProductName()
         {
             return GetProductField(ProductValidation.ValidateProductName, "Name");
         }
 
-        static string GetProductPrice()
+        private static double GetProductPrice()
         {
-            return GetProductField(ProductValidation.ValidateProductPrice, "Price");
+            return double.Parse(GetProductField(ProductValidation.ValidateProductPrice, "Price"));
         }
 
-        static string GetProductQuantity()
+        private static int GetProductQuantity()
         {
-            return GetProductField(ProductValidation.ValidateProductQuantity, "Quantity");
+            return int.Parse(GetProductField(ProductValidation.ValidateProductQuantity, "Quantity"));
         }
 
 
-        static string GetProductField(Func<string?, bool> fieldValidationMethod, string fieldName)
+        private static string GetProductField(Func<string?, bool> fieldValidationMethod, string fieldName)
         {
             string? value = string.Empty;
             bool valid = false;
@@ -139,6 +142,7 @@ namespace InventoryManagementSystem
                     Console.WriteLine($"Invalid Product {fieldName}");
                 }
             }
+
             return value ?? string.Empty;
         }
     }
