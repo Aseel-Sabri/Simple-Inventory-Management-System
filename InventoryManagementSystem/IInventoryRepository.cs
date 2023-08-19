@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentResults;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,11 @@ namespace InventoryManagementSystem
 {
     internal interface IInventoryRepository
     {
-        void AddProduct(Product product);
+        Result AddProduct(Product product);
         IEnumerable<Product> GetAllProducts();
-        IEnumerable<Product> GetProductByName(string productName);
-        void EditProduct(Product oldProduct, Product newProduct);
-        void DeleteProduct(string productName);
+        Result<Product> GetProductByName(string productName);
+        Result EditProduct(string productName, Product newProduct);
+        Result DeleteProduct(string productName);
+        public bool HasProduct(string productName);
     }
 }

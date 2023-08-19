@@ -43,6 +43,7 @@ namespace InventoryManagementSystem
                     Console.WriteLine(opResult.Errors.First().Message);
                     continue;
                 }
+
                 PerformOperation(opResult.ValueOrDefault);
             } while (opResult.ValueOrDefault != Operation.Exit);
         }
@@ -67,15 +68,18 @@ namespace InventoryManagementSystem
                 Operation.TryParse(input, out Operation op);
                 return Result.Ok(op);
             }
+
             return Result.Fail($"Operation must be an integer within the range 1 - {(int)Operation.Exit}");
 
             #region local function
+
             bool IsValidOperation(string? input)
             {
                 return !string.IsNullOrEmpty(input)
-                    && Operation.TryParse(input, out Operation op)
-                    && Operation.IsDefined(op);
+                       && Operation.TryParse(input, out Operation op)
+                       && Operation.IsDefined(op);
             }
+
             #endregion
         }
 
@@ -84,30 +88,30 @@ namespace InventoryManagementSystem
             switch (op)
             {
                 case Operation.AddProduct:
-                    {
-                        _consoleServices.AddProduct();
-                        return;
-                    }
+                {
+                    _consoleServices.AddProduct();
+                    return;
+                }
                 case Operation.ViewAllProducts:
-                    {
-                        _consoleServices.GetAllProducts();
-                        return;
-                    }
+                {
+                    _consoleServices.DisplayAllProducts();
+                    return;
+                }
                 case Operation.EditProduct:
-                    {
-                        _consoleServices.EditProduct();
-                        return;
-                    }
+                {
+                    _consoleServices.EditProduct();
+                    return;
+                }
                 case Operation.DeleteProduct:
-                    {
-                        _consoleServices.DeleteProduct();
-                        return;
-                    }
+                {
+                    _consoleServices.DeleteProduct();
+                    return;
+                }
                 case Operation.SearchProduct:
-                    {
-                        _consoleServices.SearchProduct();
-                        return;
-                    }
+                {
+                    _consoleServices.SearchProduct();
+                    return;
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentResults;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,37 +10,62 @@ namespace InventoryManagementSystem
 {
     internal class InventoryRepository : IInventoryRepository
     {
-        private readonly Inventory _inventory;
+        private readonly List<Product> _products;
+
         public InventoryRepository()
         {
-            _inventory = new Inventory();
+            _products = new List<Product>();
         }
-        public void AddProduct(Product product)
+
+        public Result AddProduct(Product product)
         {
-            _inventory.AddProduct(product);
+            if (HasProduct(product.Name))
+            {
+                return Result.Fail($"Could Not Add Product, Product with Name '{product.Name}' Already Exists");
+            }
+
+            _products.Add(product);
+            return Result.Ok();
         }
 
         public IEnumerable<Product> GetAllProducts()
         {
-            return _inventory.Products.AsEnumerable<Product>();
-        }
-        public IEnumerable<Product> GetProductByName(string productName)
-        {
-            var result = from s in _inventory.Products
-                         where s.Name == productName
-                         select s;
-            return result;
-        }
-        public void EditProduct(Product oldProduct, Product newProduct)
-        {
-            oldProduct.Name = newProduct.Name;
-            oldProduct.Price = newProduct.Price;
-            oldProduct.Quantity = newProduct.Quantity;
+            return _products.AsEnumerable<Product>();
         }
 
-        public void DeleteProduct(string productName)
+        public Result<Product> GetProductByName(string productName)
         {
-            _inventory.DeleteProduct(productName);
+            var result = (from s in _products
+                where s.Name == productName
+                select s).ToList();
+            return result.Any()
+                ? Result.Ok(result.First())
+                : Result.Fail($"No Product With Name '{productName}' Exists");
+        }
+
+        public Result EditProduct(string productName, Product newProduct)
+        {
+            var productResult = GetProductByName(productName);
+            if (productResult.IsFailed)
+            {
+                return Result.Fail($"Could Not Edit The Product, No Product With Name '{productName}' Exists");
+            }
+
+            productResult.Value.Name = newProduct.Name;
+            productResult.Value.Price = newProduct.Price;
+            productResult.Value.Quantity = newProduct.Quantity;
+            return Result.Ok();
+        }
+
+        public Result DeleteProduct(string productName)
+        {
+            return Result.OkIf(_products.RemoveAll(product => product.Name == productName) > 0,
+                $"Could Not Remove The Product, No Product With Name '{productName}' Exists");
+        }
+
+        public bool HasProduct(string productName)
+        {
+            return _products.Any(product => product.Name == productName);
         }
     }
 }

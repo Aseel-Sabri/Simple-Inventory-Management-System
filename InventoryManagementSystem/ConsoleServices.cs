@@ -29,18 +29,26 @@ namespace InventoryManagementSystem
                 Quantity = quantity
             };
 
-            _inventoryRepository.AddProduct(product);
-        }
-
-        public void GetAllProducts()
-        {
-            var products = _inventoryRepository.GetAllProducts();
-            if (!products.Any())
+            var addResult = _inventoryRepository.AddProduct(product);
+            if (addResult.IsFailed)
             {
-                Console.WriteLine("No products available");
+                Console.WriteLine(addResult.Errors.First().Message);
                 return;
             }
-            foreach (Product product in products)
+
+            Console.WriteLine("Added Successfully");
+        }
+
+        public void DisplayAllProducts()
+        {
+            var products = _inventoryRepository.GetAllProducts().ToList();
+            if (!products.Any())
+            {
+                Console.WriteLine("No Products Available");
+                return;
+            }
+
+            foreach (var product in products)
             {
                 Console.WriteLine(product);
             }
@@ -49,37 +57,33 @@ namespace InventoryManagementSystem
         public void SearchProduct()
         {
             string name = GetProductName();
-            GetProductByName(name);
+            DisplayProductByName(name);
         }
 
-        public bool GetProductByName(string name)
+        private void DisplayProductByName(string name)
         {
             Console.WriteLine();
-            var products = _inventoryRepository.GetProductByName(name);
-            if (!products.Any())
+            var productResult = _inventoryRepository.GetProductByName(name);
+            if (productResult.IsFailed)
             {
-                Console.WriteLine("Product Not Found");
-                return false;
+                Console.WriteLine(productResult.Errors.First().Message);
+                return;
             }
-            foreach (Product product in products)
-            {
-                Console.WriteLine(product);
-            }
-            return true;
+
+            Console.WriteLine(productResult.Value);
         }
 
         public void EditProduct()
         {
-            string name = GetProductName();
-            if (!GetProductByName(name))
-            {
-                return;
-            }
-
+            Console.WriteLine("Name of Product to Edit:");
+            string productName = GetProductName();
             Console.WriteLine();
+
+            Console.WriteLine("New Product Values:");
             string newName = GetProductName();
-            double newPrice = double.Parse(GetProductPrice());
-            int newQuantity = int.Parse(GetProductQuantity());
+            double newPrice = GetProductPrice();
+            int newQuantity = GetProductQuantity();
+            Console.WriteLine();
 
             Product newProduct = new()
             {
@@ -88,10 +92,11 @@ namespace InventoryManagementSystem
                 Quantity = newQuantity
             };
 
-            var products = _inventoryRepository.GetProductByName(name);
-            foreach (Product product in products)
+            var editResult = _inventoryRepository.EditProduct(productName, newProduct);
+            if (editResult.IsFailed)
             {
-                _inventoryRepository.EditProduct(product, newProduct);
+                Console.WriteLine(editResult.Errors.First().Message);
+                return;
             }
 
             Console.WriteLine("\nEdited Successfully");
@@ -99,15 +104,16 @@ namespace InventoryManagementSystem
 
         public void DeleteProduct()
         {
-            string name = GetProductName();
-            if (!GetProductByName(name))
-            {
-                return;
-            }
-
+            Console.WriteLine("Name of Product to Delete:");
+            string productName = GetProductName();
             Console.WriteLine();
 
-            _inventoryRepository.DeleteProduct(name);
+            var deleteResult = _inventoryRepository.DeleteProduct(productName);
+            if (deleteResult.IsFailed)
+            {
+                Console.WriteLine(deleteResult.Errors.First().Message);
+                return;
+            }
 
             Console.WriteLine("\nDeleted Successfully");
         }
