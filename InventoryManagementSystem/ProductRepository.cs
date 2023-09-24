@@ -1,21 +1,10 @@
 ﻿using FluentResults;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryManagementSystem
 {
-    internal class InventoryRepository : IInventoryRepository
+    public class ProductRepository : IProductRepository
     {
-        private readonly List<Product> _products;
-
-        public InventoryRepository()
-        {
-            _products = new List<Product>();
-        }
+        private readonly List<Product> _products = new();
 
         public Result AddProduct(Product product)
         {

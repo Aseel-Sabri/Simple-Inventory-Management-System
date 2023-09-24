@@ -1,20 +1,16 @@
 ﻿using FluentResults;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InventoryManagementSystem
 {
-    internal class ConsoleUserInterface : IUserInterface
+    public class ConsoleUserInterface : IUserInterface
     {
-        private readonly ConsoleServices _consoleServices;
+        private readonly IProductServices _productServices;
 
-        public ConsoleUserInterface()
+        public ConsoleUserInterface(IProductServices productServices)
         {
-            _consoleServices = new ConsoleServices();
+            _productServices = productServices;
         }
+
 
         enum Operation
         {
@@ -26,7 +22,7 @@ namespace InventoryManagementSystem
             Exit = 6
         }
 
-        public void Display()
+        public void Run()
         {
             DisplayMenu();
         }
@@ -89,27 +85,27 @@ namespace InventoryManagementSystem
             {
                 case Operation.AddProduct:
                 {
-                    _consoleServices.AddProduct();
+                    _productServices.AddProduct();
                     return;
                 }
                 case Operation.ViewAllProducts:
                 {
-                    _consoleServices.DisplayAllProducts();
+                    _productServices.DisplayAllProducts();
                     return;
                 }
                 case Operation.EditProduct:
                 {
-                    _consoleServices.EditProduct();
+                    _productServices.EditProduct();
                     return;
                 }
                 case Operation.DeleteProduct:
                 {
-                    _consoleServices.DeleteProduct();
+                    _productServices.DeleteProduct();
                     return;
                 }
                 case Operation.SearchProduct:
                 {
-                    _consoleServices.SearchProduct();
+                    _productServices.SearchProduct();
                     return;
                 }
             }

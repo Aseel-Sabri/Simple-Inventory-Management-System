@@ -4,8 +4,10 @@
     {
         static void Main(string[] args)
         {
-            IUserInterface userInterface = new ConsoleUserInterface();
-            userInterface.Display();
+            IProductRepository productRepository = new ProductRepository();
+            IProductServices productServices = new ProductServices(productRepository);
+            IUserInterface userInterface = new ConsoleUserInterface(productServices);
+            userInterface.Run();
         }
     }
 }

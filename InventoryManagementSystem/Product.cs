@@ -1,32 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryManagementSystem
+﻿namespace InventoryManagementSystem
 {
     public class Product
     {
-        public string Name { get; set; }
+        public int Id { get; init; }
+        public string Name { get; set; } = string.Empty;
         public double Price { get; set; }
         public int Quantity { get; set; }
 
-        public Product()
-        {
-            Name = string.Empty;
-        }
-
-        public Product(string name, double price, int quantity)
-        {
-            Name = name;
-            Price = price;
-            Quantity = quantity;
-        }
-
         public override string ToString()
         {
-            return $"Product Name: {Name}, Price: {Price}, Quantity: {Quantity}";
+            return $"Product ID: {Id}, Name: {Name}, Price: {Price}, Quantity: {Quantity}";
         }
     }
 }

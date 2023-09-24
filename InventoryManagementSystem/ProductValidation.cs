@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryManagementSystem
+﻿namespace InventoryManagementSystem
 {
-    internal class ProductValidation
+    public static class ProductValidation
     {
         public static bool ValidateProductName(string? productName)
         {
@@ -22,6 +16,7 @@ namespace InventoryManagementSystem
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -34,6 +29,7 @@ namespace InventoryManagementSystem
                     return true;
                 }
             }
+
             return false;
         }
     }

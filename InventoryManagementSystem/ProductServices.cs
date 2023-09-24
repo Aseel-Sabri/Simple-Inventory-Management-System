@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryManagementSystem
+﻿namespace InventoryManagementSystem
 {
-    internal class ConsoleServices
+    public class ProductServices : IProductServices
     {
-        private readonly IInventoryRepository _inventoryRepository;
+        private readonly IProductRepository _productRepository;
 
-        public ConsoleServices()
+        public ProductServices(IProductRepository productRepository)
         {
-            _inventoryRepository = new InventoryRepository();
+            _productRepository = productRepository;
         }
 
         public void AddProduct()
@@ -29,7 +23,7 @@ namespace InventoryManagementSystem
                 Quantity = quantity
             };
 
-            var addResult = _inventoryRepository.AddProduct(product);
+            var addResult = _productRepository.AddProduct(product);
             if (addResult.IsFailed)
             {
                 Console.WriteLine(addResult.Errors.First().Message);
@@ -41,7 +35,7 @@ namespace InventoryManagementSystem
 
         public void DisplayAllProducts()
         {
-            var products = _inventoryRepository.GetAllProducts().ToList();
+            var products = _productRepository.GetAllProducts().ToList();
             if (!products.Any())
             {
                 Console.WriteLine("No Products Available");
@@ -63,7 +57,7 @@ namespace InventoryManagementSystem
         private void DisplayProductByName(string name)
         {
             Console.WriteLine();
-            var productResult = _inventoryRepository.GetProductByName(name);
+            var productResult = _productRepository.GetProductByName(name);
             if (productResult.IsFailed)
             {
                 Console.WriteLine(productResult.Errors.First().Message);
@@ -92,7 +86,7 @@ namespace InventoryManagementSystem
                 Quantity = newQuantity
             };
 
-            var editResult = _inventoryRepository.EditProduct(productName, newProduct);
+            var editResult = _productRepository.EditProduct(productName, newProduct);
             if (editResult.IsFailed)
             {
                 Console.WriteLine(editResult.Errors.First().Message);
@@ -108,7 +102,7 @@ namespace InventoryManagementSystem
             string productName = GetProductName();
             Console.WriteLine();
 
-            var deleteResult = _inventoryRepository.DeleteProduct(productName);
+            var deleteResult = _productRepository.DeleteProduct(productName);
             if (deleteResult.IsFailed)
             {
                 Console.WriteLine(deleteResult.Errors.First().Message);
