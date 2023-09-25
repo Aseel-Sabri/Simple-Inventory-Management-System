@@ -129,10 +129,10 @@ namespace InventoryManagementSystem
         {
             var product = new Product()
             {
-                Id = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("ID"))),
-                Name = reader.GetValue(reader.GetOrdinal("Name")).ToString(),
-                Price = Convert.ToDouble(reader.GetValue(reader.GetOrdinal("Price"))),
-                Quantity = Convert.ToInt32(reader.GetValue(reader.GetOrdinal("Quantity")))
+                Id = reader.GetValue(reader.GetOrdinal("ID")),
+                Name = reader.GetString(reader.GetOrdinal("Name")),
+                Price = reader.GetDouble(reader.GetOrdinal("Price")),
+                Quantity = reader.GetInt32(reader.GetOrdinal("Quantity"))
             };
             return product;
         }
