@@ -19,8 +19,8 @@ public static class AppConfig
         _iconfiguration = builder.Build();
     }
 
-    public static string? GetConnectionString(string name)
+    public static string? GetConnectionString(string databaseType)
     {
-        return _iconfiguration.GetConnectionString(name);
+        return _iconfiguration?.GetSection($"DatabaseSettings:{databaseType}")["ConnectionString"];
     }
 }

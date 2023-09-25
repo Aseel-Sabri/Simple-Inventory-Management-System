@@ -6,12 +6,9 @@ namespace InventoryManagementSystem
 {
     public class MsSqlProductRepository : IProductRepository
     {
-        private readonly string? _connectionString;
+        private const string DatabaseType = "MS SQL";
 
-        public MsSqlProductRepository(string? connectionString)
-        {
-            _connectionString = connectionString;
-        }
+        private readonly string? _connectionString = AppConfig.GetConnectionString(DatabaseType);
 
         public Result AddProduct(Product product)
         {
