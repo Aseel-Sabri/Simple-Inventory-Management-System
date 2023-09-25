@@ -35,6 +35,7 @@ namespace InventoryManagementSystem
 
         public IEnumerable<Product> GetAllProducts()
         {
+            var products = new List<Product>();
             using var connection = new SqlConnection(_connectionString);
             connection.Open();
 
@@ -46,9 +47,10 @@ namespace InventoryManagementSystem
 
             while (reader.Read())
             {
-                // Should I return it as list instead of IEnumerable?
-                yield return MapProduct(reader);
+                products.Add(MapProduct(reader));
             }
+
+            return products;
         }
 
         public Result<Product> GetProductByName(string productName)
