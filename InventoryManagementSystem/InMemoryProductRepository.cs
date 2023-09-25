@@ -2,13 +2,13 @@
 
 namespace InventoryManagementSystem
 {
-    public class ProductRepository : IProductRepository
+    public class InMemoryProductRepository : IProductRepository
     {
         private readonly List<Product> _products = new();
 
         public Result AddProduct(Product product)
         {
-            if (HasProduct(product.Name))
+            if (HasProductWithName(product.Name))
             {
                 return Result.Fail($"Could Not Add Product, Product with Name '{product.Name}' Already Exists");
             }
@@ -52,7 +52,7 @@ namespace InventoryManagementSystem
                 $"Could Not Remove The Product, No Product With Name '{productName}' Exists");
         }
 
-        public bool HasProduct(string productName)
+        public bool HasProductWithName(string productName)
         {
             return _products.Any(product => product.Name == productName);
         }
