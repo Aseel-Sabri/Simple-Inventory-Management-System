@@ -23,4 +23,9 @@ public static class AppConfig
     {
         return _iconfiguration?.GetSection($"DatabaseSettings:{databaseType}")["ConnectionString"];
     }
+
+    public static string? GetDatabaseName(string databaseType)
+    {
+        return _iconfiguration?.GetSection($"DatabaseSettings:{databaseType}")["Database"];
+    }
 }
