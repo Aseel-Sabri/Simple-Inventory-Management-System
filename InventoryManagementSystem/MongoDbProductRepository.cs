@@ -6,7 +6,6 @@ namespace InventoryManagementSystem;
 
 public class MongoDbProductRepository : IProductRepository
 {
-    private const string DatabaseType = "MongoDB";
     private const string ProductsCollection = "Products";
     private const string NameAttribute = "Name";
     private const string PriceAttribute = "Price";
@@ -16,8 +15,8 @@ public class MongoDbProductRepository : IProductRepository
 
     public MongoDbProductRepository()
     {
-        var connectionString = AppConfig.GetConnectionString(DatabaseType);
-        var databaseName = AppConfig.GetDatabaseName(DatabaseType);
+        var connectionString = AppConfig.GetConnectionString();
+        var databaseName = AppConfig.GetDatabaseName();
         var client = new MongoClient(connectionString);
         var database = client.GetDatabase(databaseName);
         _collection = database.GetCollection<Product>(ProductsCollection);

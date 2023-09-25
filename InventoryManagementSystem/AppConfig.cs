@@ -19,13 +19,18 @@ public static class AppConfig
         _iconfiguration = builder.Build();
     }
 
-    public static string? GetConnectionString(string databaseType)
+    public static string? GetConnectionString()
     {
-        return _iconfiguration?.GetSection($"DatabaseSettings:{databaseType}")["ConnectionString"];
+        return _iconfiguration?.GetSection($"DatabaseSettings:{GetDatabaseType()}")["ConnectionString"];
     }
 
-    public static string? GetDatabaseName(string databaseType)
+    public static string? GetDatabaseName()
     {
-        return _iconfiguration?.GetSection($"DatabaseSettings:{databaseType}")["Database"];
+        return _iconfiguration?.GetSection($"DatabaseSettings:{GetDatabaseType()}")["Database"];
+    }
+
+    public static string? GetDatabaseType()
+    {
+        return _iconfiguration?.GetSection($"DatabaseSettings")["DefaultDatabase"];
     }
 }
